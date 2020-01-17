@@ -1,0 +1,57 @@
+{
+    "name": "christophrumpel/laravel-command-file-picker",
+    "description": "This package lets a user pick a file or class from a list during a Laravel command.",
+    "keywords": [
+        "christophrumpel",
+        "laravel-command-file-picker"
+    ],
+    "homepage": "https://github.com/christophrumpel/laravel-command-file-picker",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Christoph Rumpel",
+            "email": "christoph@christoph-rumpel.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.3",
+        "illuminate/support": "^6.0",
+        "laravel/framework": "^6.0",
+        "nikic/php-parser": "^4.3"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.4",
+        "mockery/mockery": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Christophrumpel\\LaravelCommandFilePicker\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Christophrumpel\\LaravelCommandFilePicker\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Christophrumpel\\LaravelCommandFilePicker\\LaravelCommandFilePickerServiceProvider"
+            ],
+            "aliases": {
+                "LaravelCommandFilePicker": "Christophrumpel\\LaravelCommandFilePicker\\LaravelCommandFilePickerFacade"
+            }
+        }
+    }
+}
