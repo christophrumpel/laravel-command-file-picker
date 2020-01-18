@@ -2,6 +2,7 @@
 
 namespace Christophrumpel\LaravelCommandFilePicker;
 
+use Christophrumpel\LaravelCommandFilePicker\Tests\Commands\TestCommand;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelCommandFilePickerServiceProvider extends ServiceProvider
@@ -40,7 +41,9 @@ class LaravelCommandFilePickerServiceProvider extends ServiceProvider
             ], 'lang');*/
 
             // Registering package commands.
-            // $this->commands([]);
+            $this->commands([
+                TestCommand::class,
+            ]);
         }
     }
 
