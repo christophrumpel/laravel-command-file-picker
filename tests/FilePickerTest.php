@@ -3,7 +3,6 @@
 namespace Christophrumpel\LaravelCommandFilePicker\Tests;
 
 
-use Christophrumpel\LaravelCommandFilePicker\LaravelCommandFilePickerServiceProvider;
 use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase;
 
@@ -12,7 +11,7 @@ class FilePickerTest extends TestCase
 
     protected function getPackageProviders($app)
     {
-        return [LaravelCommandFilePickerServiceProvider::class];
+        return [TestServiceProvider::class];
     }
 
    /** @test **/

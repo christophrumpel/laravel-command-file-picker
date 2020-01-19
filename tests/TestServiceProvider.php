@@ -1,11 +1,11 @@
 <?php
 
-namespace Christophrumpel\LaravelCommandFilePicker;
+namespace Christophrumpel\LaravelCommandFilePicker\Tests;
 
 use Christophrumpel\LaravelCommandFilePicker\Tests\Commands\TestCommand;
 use Illuminate\Support\ServiceProvider;
 
-class LaravelCommandFilePickerServiceProvider extends ServiceProvider
+class TestServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -42,6 +42,7 @@ class LaravelCommandFilePickerServiceProvider extends ServiceProvider
 
             // Registering package commands.
             $this->commands([
+                TestCommand::class,
             ]);
         }
     }
