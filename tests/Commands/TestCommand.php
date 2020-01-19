@@ -12,6 +12,8 @@ class TestCommand extends Command
 
     protected $signature = "run:test-command";
 
+    protected $hidden = true;
+
     public function __construct()
     {
         parent::__construct();
