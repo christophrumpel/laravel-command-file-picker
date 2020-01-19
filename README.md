@@ -101,8 +101,6 @@ It will automatically look for models under your `app/Models` path.
 Next up, I want to add a config file so you can define where your Laravel models live inside your app because this is different for everyone, of course.
 
 
-```
-
 ### Testing
 
 ``` bash
