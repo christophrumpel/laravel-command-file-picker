@@ -29,13 +29,9 @@ This package was generated using the [Laravel Package Boilerplate](https://larav
 
 ## Usage
 
-We distinguish between asking files or classes because there are different use-cases. With a file, you may want to copy, compress, or transfer it. This is when you need the path of the file.
-
-With a class, you are probably more interested in the fully qualified class name. You can use it to create a new instance, for example.
-
 ### Load Classes
 
-To show the user a list of classes, you need to use the package's trait called `AskClasses`.
+To show the user a list of classes, you need to use the package's trait called `PicksClasses`.
 
 ```
 <?php
@@ -52,13 +48,13 @@ class MyLaravelCommand extends Command
 }
 ```
 
-After that you are able to show the user a list of files to choose from:
+After that you are able to show the user a list of files to choose from by calling the new `askToPickClasses` method:
 
 ```
 $modelClass = $this->askToPickClass(base_path('app/Models'));
 ```
 
-This will give you back the selected class. If you just need Laravel models, you can also load them like:
+This will show the user all the classes and give you back the selected class in your command. If you just need Laravel models, you can also load them like:
 
 ```
 $modelClass = $this->askToPickModels());
