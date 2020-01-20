@@ -23,10 +23,6 @@ You can install the package via composer:
 composer require christophrumpel/laravel-command-file-picker
 ```
 
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
-
-
-
 ## Usage
 
 ### Load Classes
