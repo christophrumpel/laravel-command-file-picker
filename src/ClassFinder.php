@@ -13,7 +13,7 @@ use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
 use ReflectionClass;
 
-class ModelFinder
+class ClassFinder
 {
 
     /** @var Filesystem */
@@ -24,7 +24,7 @@ class ModelFinder
         $this->filesystem = $filesystem;
     }
 
-    public function getModelsInDirectory(string $directory): Collection
+    public function getClassesInDirectory(string $directory, bool $lookingForModels = false): Collection
     {
         $files = $this->filesystem->files($directory);
 
@@ -33,9 +33,20 @@ class ModelFinder
         })->map(function ($path) {
             return $this->getFullyQualifiedClassNameFromFile($path);
         })->filter(function (string $className) {
-            return ! empty($className) && is_subclass_of($className,
-                    EloquentModel::class) && ! (new ReflectionClass($className))->isAbstract();
+            return ! empty($className);
+        })->filter(function ($className) use ($lookingForModels) {
+            if ($lookingForModels) {
+                return is_subclass_of($className,
+                        EloquentModel::class) && ! (new ReflectionClass($className))->isAbstract();
+            }
+
+            return true;
         })->sort();
+    }
+
+    public function getModelsInDirectory(string $directory): Collection
+    {
+        return $this->getClassesInDirectory($directory, true);
     }
 
     protected function getFullyQualifiedClassNameFromFile(string $path): string

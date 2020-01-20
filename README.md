@@ -33,35 +33,6 @@ We distinguish between asking files or classes because there are different use-c
 
 With a class, you are probably more interested in the fully qualified class name. You can use it to create a new instance, for example.
 
-
-### Load Files
-
-To show the user a list of files, you need to use the package's trait called `AskFiles`.
-
-```
-<?php
-
-use Illuminate\Console\Command;
-
-
-class MyLaravelCommand extends Command
-{
-  use PicksFiles;
-  
-  //...
-
-}
-```
-
-After that you are able to show the user a list of files like:
-
-```
-$file = $this->askToPickFile(base_path('resources/json'));
-```
-
-This will give you back the chosen file path.
-
-
 ### Load Classes
 
 To show the user a list of classes, you need to use the package's trait called `AskClasses`.
@@ -98,8 +69,8 @@ It will automatically look for models under your `app/Models` path.
 
 ## Next Up
 
-Next up, I want to add a config file so you can define where your Laravel models live inside your app because this is different for everyone, of course.
-
+- config to define model directory
+- load files
 
 ### Testing
 

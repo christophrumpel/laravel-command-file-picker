@@ -3,11 +3,13 @@
 namespace BeyondCode\ErdGenerator\Tests;
 
 use Christophrumpel\LaravelCommandFilePicker\ClassFinder;
+use Christophrumpel\LaravelCommandFilePicker\Tests\Classes\Helper;
+use Christophrumpel\LaravelCommandFilePicker\Tests\Classes\Support;
 use Christophrumpel\LaravelCommandFilePicker\Tests\Models\Project;
 use Christophrumpel\LaravelCommandFilePicker\Tests\Models\User;
 use Orchestra\Testbench\TestCase;
 
-class ModelFinderTest extends TestCase
+class ClassFinderTest extends TestCase
 {
 
     /** @test */
@@ -15,12 +17,12 @@ class ModelFinderTest extends TestCase
     {
         $finder = new ClassFinder(app()->make('files'));
 
-        $classNames = $finder->getModelsInDirectory(__DIR__ . "/Models");
+        $classNames = $finder->getClassesInDirectory(__DIR__ . "/Classes");
 
         $this->assertCount(2, $classNames);
 
         $this->assertSame(
-            [Project::class, User::class],
+            [Helper::class, Support::class],
             $classNames->values()->all()
         );
     }
