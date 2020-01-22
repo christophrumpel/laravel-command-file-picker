@@ -7,9 +7,9 @@
 
 This package lets you show a list of files or classes to choose from during a Laravel command.
 
-![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_command_file_picker_classes.png)
-![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_command_file_picker_models.png)
-![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_command_file_picker_files.png)
+![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_command_file_picker_classes_v1.png)
+![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_command_file_picker_models_v1.png)
+![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_command_file_picker_files_v1.png)
 
 
 ## Reasons You Might Need This Package
