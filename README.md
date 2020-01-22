@@ -7,7 +7,10 @@
 
 This package lets a user pick a file from a list during a Laravel command.
 
-![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_factories_reloaded.png)
+![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_factories_reloaded_classes.png)
+![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_factories_reloaded_models.png)
+![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_factories_reloaded_files.png)
+
 
 ## Reasons You Might Need This Package
 
@@ -27,7 +30,7 @@ composer require christophrumpel/laravel-command-file-picker
 
 ### Load Classes
 
-To show the user a list of classes, you need to use the package's trait called `PicksClasses`. Just add it to one of your Laravel commands.
+To show the user a list of classes, you need to use the package's trait called `PicksClasses`. Just add it to one of your Laravel commands. (Be aware that you have to create your Laravel commands yourself.)
 
 ```
 <?php
