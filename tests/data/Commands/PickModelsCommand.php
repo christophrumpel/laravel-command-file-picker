@@ -1,11 +1,11 @@
 <?php
 
-namespace Christophrumpel\LaravelCommandFilePicker\Tests\Commands;
+namespace Christophrumpel\LaravelCommandFilePicker\Tests\Data\Commands;
 
 use Christophrumpel\LaravelCommandFilePicker\Traits\PicksClasses;
 use Illuminate\Console\Command;
 
-class TestCommand extends Command
+class PickModelsCommand extends Command
 {
 
     use PicksClasses;
@@ -19,7 +19,7 @@ class TestCommand extends Command
 
     public function handle()
     {
-        $filePath = $this->askToPickModel(__DIR__.'/../Models');
+        $filePath = $this->askToPickModels(__DIR__.'/../Models');
 
         $this->info('Thanks. You have chosen: '.$filePath);
     }

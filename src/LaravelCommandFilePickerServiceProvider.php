@@ -22,7 +22,7 @@ class LaravelCommandFilePickerServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('laravel-command-file-picker.php'),
+                __DIR__.'/../config/command-file-picker.php' => config_path('laravel-command-file-picker.php'),
             ], 'config');
 
             // Publishing the views.
@@ -52,7 +52,7 @@ class LaravelCommandFilePickerServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel-command-file-picker');
+        $this->mergeConfigFrom(__DIR__.'/../config/command-file-picker.php', 'command-file-picker');
 
         // Register the main class to use with the facade
         $this->app->singleton('laravel-command-file-picker', function () {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Christophrumpel\LaravelCommandFilePicker\Tests\Models;
+namespace Christophrumpel\LaravelCommandFilePicker\Tests\Data\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

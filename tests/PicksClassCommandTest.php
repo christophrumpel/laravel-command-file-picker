@@ -3,12 +3,13 @@
 namespace Christophrumpel\LaravelCommandFilePicker\Tests;
 
 use Christophrumpel\LaravelCommandFilePicker\LaravelCommandFilePickerServiceProvider;
-use Christophrumpel\LaravelCommandFilePicker\Tests\Commands\TestCommand;
+use Christophrumpel\LaravelCommandFilePicker\Tests\Data\Commands\NotModelsGivenCommand;
+use Christophrumpel\LaravelCommandFilePicker\Tests\Data\Commands\PickModelsCommand;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase;
 
-class FilePickerTest extends TestCase
+class PicksClassCommandTest extends TestCase
 {
 
     public function setUp(): void
@@ -16,7 +17,8 @@ class FilePickerTest extends TestCase
         parent::setUp();
 
         Application::starting(function (Application $artisan) {
-            $artisan->add(app(TestCommand::class));
+            $artisan->add(app(PickModelsCommand::class));
+            $artisan->add(app(NotModelsGivenCommand::class));
         });
     }
 
@@ -34,4 +36,12 @@ class FilePickerTest extends TestCase
             ->expectsQuestion('Please pick a class', 'file-path')
             ->expectsOutput('Thanks. You have chosen: file-path');
     }
+
+    /** @test * */
+    public function it_uses_throws_exception_if_no_classes_found()
+    {
+        $this->expectException(\LogicException::class);
+        Artisan::call('run:test-command-no-models-given');
+    }
+
 }

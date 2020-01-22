@@ -5,4 +5,6 @@
  */
 return [
 
+    'model_path' => app_path(),
+
 ];

@@ -27,7 +27,7 @@ composer require christophrumpel/laravel-command-file-picker
 
 ### Load Classes
 
-To show the user a list of classes, you need to use the package's trait called `PicksClasses`.
+To show the user a list of classes, you need to use the package's trait called `PicksClasses`. Just add it to one of your Laravel commands.
 
 ```
 <?php
@@ -47,7 +47,7 @@ class MyLaravelCommand extends Command
 After that you are able to show the user a list of files to choose from by calling the new `askToPickClasses` method:
 
 ```
-$modelClass = $this->askToPickClass(base_path('app/Models'));
+$modelClass = $this->askToPickClasses(base_path('app/Models'));
 ```
 
 This will show the user all the classes and give you back the selected class in your command. If you just need Laravel models, you can also load them like:
@@ -58,11 +58,36 @@ $modelClass = $this->askToPickModels());
 
 It will automatically look for models under your `app/Models` path.
 
+### Load Files
+
+To show the user a list of files, you need to use the package's trait called `PicksFiles`. Just add it to one of your Laravel commands.
+
+```
+<?php
+
+use Illuminate\Console\Command;
+
+
+class MyLaravelCommand extends Command
+{
+  use PicksFiles;
+  
+  //...
+
+}
+```
+
+After that you are able to show the user a list of files to choose from by calling the new `askToPickFiles` method. As a parameter you provide a directory path.
+
+```
+$file = $this->askToPickFiles(base_path('app/Models'));
+```
+
+This will show the user all the files and give you back the selected file path in your command.
 
 ## Next Up
 
 - config to define model directory
-- load files
 - load classes with specific parent class using an interface
 
 ### Testing
