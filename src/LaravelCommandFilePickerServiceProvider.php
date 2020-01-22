@@ -56,7 +56,7 @@ class LaravelCommandFilePickerServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('laravel-command-file-picker', function () {
-            return new LaravelCommandFilePicker;
+            //return new LaravelCommandFilePicker;
         });
     }
 }
