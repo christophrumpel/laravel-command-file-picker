@@ -17,7 +17,7 @@ class ClassFinderTest extends TestCase
     {
         $finder = new ClassFinder(app()->make('files'));
 
-        $classNames = $finder->getClassesInDirectory(__DIR__ . "/data/Classes");
+        $classNames = $finder->getClassesInDirectory(__DIR__ . "/Data/Classes");
 
         $this->assertCount(2, $classNames);
 
@@ -31,7 +31,7 @@ class ClassFinderTest extends TestCase
     public function it_can_find_model_names_within_directory()
     {
         $finder = new ClassFinder(app()->make('files'));
-        $classNames = $finder->getModelsInDirectory(__DIR__ . "/data/Models");
+        $classNames = $finder->getModelsInDirectory(__DIR__ . "/Data/Models");
 
         $this->assertCount(2, $classNames);
 
