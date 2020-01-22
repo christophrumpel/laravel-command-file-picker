@@ -27,4 +27,19 @@ class ClassFinderTest extends TestCase
         );
     }
 
+    /** @test */
+    public function it_can_find_model_names_from_directory()
+    {
+        $finder = new ClassFinder(app()->make('files'));
+
+        $classNames = $finder->getModelsInDirectory(__DIR__ . "/Models");
+
+        $this->assertCount(2, $classNames);
+
+        $this->assertSame(
+            [Project::class, User::class],
+            $classNames->values()->all()
+        );
+    }
+
 }
