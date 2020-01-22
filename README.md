@@ -1,4 +1,4 @@
-# Laravel Command File Picker (WIP)
+# Laravel Command File Picker
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/christophrumpel/laravel-command-file-picker.svg?style=flat-square)](https://packagist.org/packages/christophrumpel/laravel-command-file-picker)
 [![Build Status](https://img.shields.io/travis/christophrumpel/laravel-command-file-picker/master.svg?style=flat-square)](https://travis-ci.org/christophrumpel/laravel-command-file-picker)
