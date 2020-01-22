@@ -5,7 +5,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/christophrumpel/laravel-command-file-picker.svg?style=flat-square)](https://scrutinizer-ci.com/g/christophrumpel/laravel-command-file-picker)
 [![Total Downloads](https://img.shields.io/packagist/dt/christophrumpel/laravel-command-file-picker.svg?style=flat-square)](https://packagist.org/packages/christophrumpel/laravel-command-file-picker)
 
-This package lets a user pick a file from a list during a Laravel command.
+This package lets you show list of files or classes to choose from during a Laravel command.
 
 ![Screenshot of the command](http://screenshots.nomoreencore.com/laravel_factories_reloaded.png)
 
