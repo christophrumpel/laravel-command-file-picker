@@ -30,7 +30,7 @@ trait PicksClasses
             throw new \LogicException('No models found to show.');
         }
 
-        return $this->choice('Please pick a class', $classNames->toArray());
+        return $this->choice('Please pick a model', $classNames->toArray());
     }
 
 }

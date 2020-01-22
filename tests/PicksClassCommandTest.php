@@ -33,7 +33,7 @@ class PicksClassCommandTest extends TestCase
         Artisan::call('make:model UserModel');
 
         $this->artisan('run:test-command')
-            ->expectsQuestion('Please pick a class', 'file-path')
+            ->expectsQuestion('Please pick a model', 'file-path')
             ->expectsOutput('Thanks. You have chosen: file-path');
     }
 
