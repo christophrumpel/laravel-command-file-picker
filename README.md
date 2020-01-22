@@ -63,6 +63,7 @@ It will automatically look for models under your `app/Models` path.
 
 - config to define model directory
 - load files
+- load classes with specific parent class using an interface
 
 ### Testing
 
