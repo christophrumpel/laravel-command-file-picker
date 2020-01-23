@@ -12,8 +12,8 @@ class FileFinderTest extends TestCase
     public function it_can_find_files_within_directory()
     {
         $finder = new FileFinder(app()->make('files'));
-        $files = $finder->getFilesInDirectory(__DIR__.'/data/Classes');
+        $files = $finder->getFilesInDirectory(__DIR__.'/Data/Classes');
 
-        $this->assertEquals([__DIR__.'/data/Classes/Helper.php', __DIR__.'/data/Classes/Support.php'], $files->toArray());
+        $this->assertEquals([__DIR__.'/Data/Classes/Helper.php', __DIR__.'/Data/Classes/Support.php'], $files->toArray());
     }
 }
