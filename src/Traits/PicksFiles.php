@@ -9,7 +9,7 @@ trait PicksFiles
 
     protected function askToPickFiles($path): string
     {
-        $finder = new FileFinder(app()->make('files'));
+        $finder = new FileFinder($this->laravel->make('files'));
         $classNames = $finder->getFilesInDirectory($path);
 
         if ($classNames->isEmpty()) {

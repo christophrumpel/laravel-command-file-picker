@@ -22,7 +22,10 @@ class ClassFinderTest extends TestCase
         $this->assertCount(2, $classNames);
 
         $this->assertSame(
-            [Helper::class, Support::class],
+            [
+                '<href=file://'.__DIR__.'/Data/Classes/Helper.php>'.Helper::class.'</>',
+                '<href=file://'.__DIR__.'/Data/Classes/Support.php>'.Support::class.'</>',
+            ],
             $classNames->values()->all()
         );
     }
@@ -36,7 +39,10 @@ class ClassFinderTest extends TestCase
         $this->assertCount(2, $classNames);
 
         $this->assertSame(
-            [Project::class, User::class],
+            [
+                '<href=file://'.__DIR__.'/Data/Models/Project.php>'.Project::class.'</>',
+                '<href=file://'.__DIR__.'/Data/Models/User.php>'.User::class.'</>',
+            ],
             $classNames->values()->all()
         );
     }

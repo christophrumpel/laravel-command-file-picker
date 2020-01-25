@@ -31,6 +31,8 @@ class FileFinder
 
         return collect($files)->transform(function (SplFileInfo $file) {
             return $file->getPathname();
+        })->transform(function (string $path) {
+            return vsprintf('<href=file://%s>%s</>', [$path, $path]);
         });
     }
 

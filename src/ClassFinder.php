@@ -5,13 +5,13 @@ namespace Christophrumpel\LaravelCommandFilePicker;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
 use ReflectionClass;
+use SplFileInfo;
 
 class ClassFinder
 {
@@ -28,19 +28,27 @@ class ClassFinder
     {
         $files = $this->filesystem->files($directory);
 
-        return Collection::make($files)->filter(function ($path) {
-            return Str::endsWith($path, '.php');
-        })->map(function ($path) {
-            return $this->getFullyQualifiedClassNameFromFile($path);
-        })->filter(function (string $className) {
+        return Collection::make($files)->filter(function (SplFileInfo $file) {
+            return $file->getExtension() === 'php';
+        })->map(function (SplFileInfo $file) {
+            $path = $file->getPathname();
+
+            return [$path, $this->getFullyQualifiedClassNameFromFile($path)];
+        })->filter(function (array $tuple) {
+            [, $className] = $tuple;
+
             return ! empty($className);
-        })->filter(function ($className) use ($lookingForModels) {
+        })->filter(function (array $tuple) use ($lookingForModels) {
+            [, $className] = $tuple;
+
             if ($lookingForModels) {
                 return is_subclass_of($className,
                         EloquentModel::class) && ! (new ReflectionClass($className))->isAbstract();
             }
 
             return true;
+        })->transform(function (array $tuple) {
+            return vsprintf('<href=file://%s>%s</>', $tuple);
         })->sort();
     }
 

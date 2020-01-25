@@ -9,7 +9,7 @@ trait PicksClasses
 
     protected function askToPickClasses($path): string
     {
-        $finder = new ClassFinder(app()->make('files'));
+        $finder = new ClassFinder($this->laravel->make('files'));
         $classNames = $finder->getClassesInDirectory($path);
 
         if ($classNames->isEmpty()) {
@@ -23,7 +23,7 @@ trait PicksClasses
     {
         $path = $path ?? app_path();
 
-        $finder = new ClassFinder(app()->make('files'));
+        $finder = new ClassFinder($this->laravel->make('files'));
         $classNames = $finder->getModelsInDirectory($path);
 
         if ($classNames->isEmpty()) {
