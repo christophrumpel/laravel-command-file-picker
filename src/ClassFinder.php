@@ -28,28 +28,36 @@ class ClassFinder
     {
         $files = $this->filesystem->files($directory);
 
-        return Collection::make($files)->filter(function (SplFileInfo $file) {
-            return $file->getExtension() === 'php';
-        })->map(function (SplFileInfo $file) {
-            $path = $file->getPathname();
+        return Collection::make($files)
+            ->filter(function (SplFileInfo $file) {
+                return $file->getExtension() === 'php';
+            })
+            ->map(function (SplFileInfo $file) {
+                $path = $file->getPathname();
 
-            return [$path, $this->getFullyQualifiedClassNameFromFile($path)];
-        })->filter(function (array $tuple) {
-            [, $className] = $tuple;
+                return [
+                    'path' => $path,
+                    'name' => $this->getFullyQualifiedClassNameFromFile($path),
+                    'link' => '',
+                ];
+            })
+            ->filter(function (array $classData) {
+                return ! empty($classData['name']);
+            })
+            ->filter(function (array $classData) use ($lookingForModels) {
+                if ($lookingForModels) {
+                    return is_subclass_of($classData['name'],
+                            EloquentModel::class) && ! (new ReflectionClass($classData['name']))->isAbstract();
+                }
 
-            return ! empty($className);
-        })->filter(function (array $tuple) use ($lookingForModels) {
-            [, $className] = $tuple;
+                return true;
+            })
+            ->transform(function (array $classData) {
+                $classData['link'] = vsprintf('<href=file://%s>%s</>', $classData);
 
-            if ($lookingForModels) {
-                return is_subclass_of($className,
-                        EloquentModel::class) && ! (new ReflectionClass($className))->isAbstract();
-            }
-
-            return true;
-        })->transform(function (array $tuple) {
-            return vsprintf('<href=file://%s>%s</>', $tuple);
-        })->sort();
+                return $classData;
+            })
+            ->sort();
     }
 
     public function getModelsInDirectory(string $directory): Collection
@@ -78,10 +86,13 @@ class ClassFinder
             return '';
         }
 
-        return collect($root_statement->stmts)->filter(function ($statement) {
-                return $statement instanceof Class_;
-            })->map(function (Class_ $statement) {
-                return $statement->namespacedName->toString();
-            })->first() ?? '';
+        return collect($root_statement->stmts)
+                ->filter(function ($statement) {
+                    return $statement instanceof Class_;
+                })
+                ->map(function (Class_ $statement) {
+                    return $statement->namespacedName->toString();
+                })
+                ->first() ?? '';
     }
 }

@@ -10,12 +10,23 @@ trait PicksFiles
     protected function askToPickFiles($path): string
     {
         $finder = new FileFinder($this->laravel->make('files'));
-        $classNames = $finder->getFilesInDirectory($path);
+        $files = $finder->getFilesInDirectory($path);
 
-        if ($classNames->isEmpty()) {
+        if ($files->isEmpty()) {
             throw new \LogicException('No files found to show.');
         }
 
-        return $this->choice('Please pick a file', $classNames->toArray());
+        $linkedModels = collect($files)
+            ->transform(function (array $file) {
+                return $file['link'];
+            })
+            ->toArray();
+
+        $chosenClass = $this->choice('Please pick a file', $linkedModels);
+
+        return $files->filter(function($class) use ($chosenClass) {
+            return $class['link'] === $chosenClass;
+        })->first()['path'];
+
     }
 }

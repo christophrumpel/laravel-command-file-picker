@@ -5,6 +5,7 @@ namespace Christophrumpel\LaravelCommandFilePicker\Tests;
 use Christophrumpel\LaravelCommandFilePicker\LaravelCommandFilePickerServiceProvider;
 use Christophrumpel\LaravelCommandFilePicker\Tests\Data\Commands\NotModelsGivenCommand;
 use Christophrumpel\LaravelCommandFilePicker\Tests\Data\Commands\PickModelsCommand;
+use Christophrumpel\LaravelCommandFilePicker\Tests\Data\Models\User;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase;
@@ -32,9 +33,9 @@ class PicksClassCommandTest extends TestCase
     {
         Artisan::call('make:model UserModel');
 
-        $this->artisan('run:test-command')
-            ->expectsQuestion('Please pick a model', 'file-path')
-            ->expectsOutput('Thanks. You have chosen: file-path');
+        $this->artisan('run:test-command-pick-model')
+            ->expectsQuestion('Please pick a model', '<href=file://'.__DIR__.'/Data/Commands/../Models/User.php>'.User::class.'</>')
+            ->expectsOutput('Thanks. You have chosen: '.User::class);
     }
 
     /** @test * */

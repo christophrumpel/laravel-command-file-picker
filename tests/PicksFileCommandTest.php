@@ -35,8 +35,8 @@ class PicksFileCommandTest extends TestCase
         Artisan::call('make:model UserModel');
 
         $this->artisan('run:test-command-pick-file')
-            ->expectsQuestion('Please pick a file', 'file-path')
-            ->expectsOutput('Thanks. You have chosen: file-path');
+            ->expectsQuestion('Please pick a file', '<href=file://'.__DIR__.'/Data/Commands/../Models/Project.php>'.__DIR__.'/Data/Commands/../Models/Project.php</>')
+            ->expectsOutput('Thanks. You have chosen: '.__DIR__.'/Data/Commands/../Models/Project.php');
     }
 
     /** @test * */

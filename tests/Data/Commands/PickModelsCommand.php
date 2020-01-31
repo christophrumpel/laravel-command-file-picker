@@ -10,7 +10,7 @@ class PickModelsCommand extends Command
 
     use PicksClasses;
 
-    protected $signature = "run:test-command";
+    protected $signature = "run:test-command-pick-model";
 
     public function __construct()
     {

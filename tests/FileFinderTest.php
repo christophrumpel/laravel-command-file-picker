@@ -15,8 +15,14 @@ class FileFinderTest extends TestCase
         $files = $finder->getFilesInDirectory(__DIR__.'/Data/Classes');
 
         $this->assertEquals([
-            '<href=file://'.__DIR__.'/Data/Classes/Helper.php>'.__DIR__.'/Data/Classes/Helper.php</>',
-            '<href=file://'.__DIR__.'/Data/Classes/Support.php>'.__DIR__.'/Data/Classes/Support.php</>',
+            [
+                'path' => __DIR__.'/Data/Classes/Helper.php',
+                'link' => '<href=file://'.__DIR__.'/Data/Classes/Helper.php>'.__DIR__.'/Data/Classes/Helper.php</>'
+            ],
+            [
+                'path' => __DIR__.'/Data/Classes/Support.php',
+                'link' => '<href=file://'.__DIR__.'/Data/Classes/Support.php>'.__DIR__.'/Data/Classes/Support.php</>'
+            ],
         ], $files->toArray());
     }
 }

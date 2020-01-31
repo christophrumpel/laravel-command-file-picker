@@ -3,6 +3,7 @@
 namespace Christophrumpel\LaravelCommandFilePicker\Traits;
 
 use Christophrumpel\LaravelCommandFilePicker\ClassFinder;
+use Illuminate\Support\Collection;
 
 trait PicksClasses
 {
@@ -10,27 +11,42 @@ trait PicksClasses
     protected function askToPickClasses($path): string
     {
         $finder = new ClassFinder($this->laravel->make('files'));
-        $classNames = $finder->getClassesInDirectory($path);
+        $classes = $finder->getClassesInDirectory($path);
 
-        if ($classNames->isEmpty()) {
+        if ($classes->isEmpty()) {
             return $this->error("No classes found in \"$path\".");
         }
 
-        return $this->choice('Please pick a class', $classNames->toArray());
+        return $this->askChoice($classes);
     }
 
     protected function askToPickModels($path = null): string
     {
-        $path = $path ?? app_path();
+        $path = $path ?? config('command-file-picker.model_path') ?? app_path();
 
         $finder = new ClassFinder($this->laravel->make('files'));
-        $classNames = $finder->getModelsInDirectory($path);
+        $models = $finder->getModelsInDirectory($path);
 
-        if ($classNames->isEmpty()) {
+        if ($models->isEmpty()) {
             throw new \LogicException('No models found to show.');
         }
 
-        return $this->choice('Please pick a model', $classNames->toArray());
+        return $this->askChoice($models);
+    }
+
+    private function askChoice(Collection $classes): string
+    {
+        $linkedModels = $classes->map(function (array $model) {
+                return $model['link'];
+            })
+            ->toArray();
+
+        $chosenClass = $this->choice('Please pick a model', $linkedModels);
+
+        return $classes->filter(function ($class) use ($chosenClass) {
+            return $class['link'] === $chosenClass;
+        })
+            ->first()['name'];
     }
 
 }
