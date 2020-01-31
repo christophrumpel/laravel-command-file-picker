@@ -22,13 +22,13 @@ class LaravelCommandFilePickerServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/command-file-picker.php' => config_path('laravel-command-file-picker.php'),
+                __DIR__.'/../config/command-file-picker.php' => config_path('command-file-picker.php'),
             ], 'config');
 
             // Publishing the views.
             /*$this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-command-file-picker'),
-            ], 'views');*/
+            ], 'views');*
 
             // Publishing assets.
             /*$this->publishes([
