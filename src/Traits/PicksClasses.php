@@ -26,6 +26,13 @@ trait PicksClasses
     }
 
 
+    public function pick()
+    {
+        if(!$this->loader) {
+            throw new \LogicException('Call '.__METHOD__.' on null');
+        }
+        return $this->askChoice($this->loader);
+    }
 
     protected function askToPickClasses($path): string
     {
