@@ -8,6 +8,25 @@ use Illuminate\Support\Collection;
 trait PicksClasses
 {
 
+    private $loader;
+
+    public function loadModels($path = null)
+    {
+        $path = $path ?? config('command-file-picker.model_path') ?? app_path();
+
+        $finder = new ClassFinder(app()->make(\Illuminate\Filesystem\Filesystem::class));
+        $models = $finder->getModelsInDirectory($path);
+
+        if (!$models->isEmpty()) {
+            $this->loader = $models;
+            return $this;
+        }
+
+        throw new \LogicException('No models found to show.');
+    }
+
+
+
     protected function askToPickClasses($path): string
     {
         $finder = new ClassFinder($this->laravel->make('files'));
