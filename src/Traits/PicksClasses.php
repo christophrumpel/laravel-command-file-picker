@@ -25,6 +25,13 @@ trait PicksClasses
         throw new \LogicException('No models found to show.');
     }
 
+    public function toCollection()
+    {
+        if(!$this->loader) {
+            throw new \LogicException('Call '.__METHOD__.' on null');
+        }
+        return $this->loader;
+    }
 
     public function pick()
     {
