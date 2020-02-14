@@ -10,7 +10,7 @@ trait PicksClasses
 
     private $loader;
 
-    public function loadModels($path = null)
+    protected function loadModels($path = null)
     {
         $path = $path ?? config('command-file-picker.model_path') ?? app_path();
 
@@ -25,7 +25,7 @@ trait PicksClasses
         throw new \LogicException('No models found to show.');
     }
 
-    public function toCollection()
+    protected function toCollection()
     {
         if(!$this->loader) {
             throw new \LogicException('Call '.__METHOD__.' on null');
@@ -33,12 +33,17 @@ trait PicksClasses
         return $this->loader;
     }
 
-    public function pick()
+    protected function pick()
     {
         if(!$this->loader) {
             throw new \LogicException('Call '.__METHOD__.' on null');
         }
         return $this->askChoice($this->loader);
+    }
+
+    protected function askToPickModels($path = null): string
+    {
+        return $this->loadModels($path)->pick();
     }
 
     protected function askToPickClasses($path): string
@@ -53,19 +58,7 @@ trait PicksClasses
         return $this->askChoice($classes);
     }
 
-    protected function askToPickModels($path = null): string
-    {
-        $path = $path ?? config('command-file-picker.model_path') ?? app_path();
 
-        $finder = new ClassFinder($this->laravel->make('files'));
-        $models = $finder->getModelsInDirectory($path);
-
-        if ($models->isEmpty()) {
-            throw new \LogicException('No models found to show.');
-        }
-
-        return $this->askChoice($models);
-    }
 
     private function askChoice(Collection $classes): string
     {
