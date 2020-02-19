@@ -7,10 +7,11 @@ use Christophrumpel\LaravelCommandFilePicker\FileFinder;
 trait PicksFiles
 {
 
-    protected function askToPickFiles($path): string
+    protected function askToPickFiles(string $path, callable $filter = null): string
     {
         $finder = new FileFinder($this->laravel->make('files'));
-        $files = $finder->getFilesInDirectory($path);
+        $files = $finder->getFilesInDirectory($path)
+            ->filter($filter)->values();
 
         if ($files->isEmpty()) {
             throw new \LogicException('No files found to show.');

@@ -8,24 +8,26 @@ use Illuminate\Support\Collection;
 trait PicksClasses
 {
 
-    protected function askToPickClasses($path): string
+    protected function askToPickClasses(string $path, callable $filter = null): string
     {
         $finder = new ClassFinder($this->laravel->make('files'));
-        $classes = $finder->getClassesInDirectory($path);
+        $classes = $finder->getClassesInDirectory($path)
+            ->filter($filter)->values();
 
         if ($classes->isEmpty()) {
-            return $this->error("No classes found in \"$path\".");
+            throw new \LogicException('No classes found to show.');
         }
 
         return $this->askChoice($classes);
     }
 
-    protected function askToPickModels($path = null): string
+    protected function askToPickModels(string $path = null, callable $filter = null): string
     {
         $path = $path ?? config('command-file-picker.model_path') ?? app_path();
 
         $finder = new ClassFinder($this->laravel->make('files'));
-        $models = $finder->getModelsInDirectory($path);
+        $models = $finder->getModelsInDirectory($path)
+            ->filter($filter)->values();
 
         if ($models->isEmpty()) {
             throw new \LogicException('No models found to show.');
