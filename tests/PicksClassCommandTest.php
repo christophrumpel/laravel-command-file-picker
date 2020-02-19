@@ -39,7 +39,7 @@ class PicksClassCommandTest extends TestCase
     }
 
     /** @test * */
-    public function it_uses_throws_exception_if_no_classes_found()
+    public function it_throws_exception_if_no_classes_found()
     {
         $this->expectException(\LogicException::class);
         Artisan::call('run:test-command-no-models-given');
