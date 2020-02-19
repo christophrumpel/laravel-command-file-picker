@@ -32,7 +32,7 @@ composer require christophrumpel/laravel-command-file-picker
 
 To show the user a list of classes, you need to use the package's trait called `PicksClasses`. Just add it to one of your Laravel commands. (Be aware that you have to create your Laravel commands yourself.)
 
-```
+```php
 <?php
 
 use Illuminate\Console\Command;
@@ -49,13 +49,13 @@ class MyLaravelCommand extends Command
 
 After that you are able to show the user a list of files to choose from by calling the new `askToPickClasses` method:
 
-```
+```php
 $modelClass = $this->askToPickClasses(base_path('app/Models'));
 ```
 
 This will show the user all the classes and give you back the selected class in your command. If you just need Laravel models, you can also load them like:
 
-```
+```php
 $modelClass = $this->askToPickModels());
 ```
 
@@ -65,7 +65,7 @@ It will automatically look for models under your `app/Models` path.
 
 To show the user a list of files, you need to use the package's trait called `PicksFiles`. Just add it to one of your Laravel commands.
 
-```
+```php
 <?php
 
 use Illuminate\Console\Command;
