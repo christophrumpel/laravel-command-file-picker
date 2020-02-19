@@ -82,11 +82,26 @@ class MyLaravelCommand extends Command
 
 After that you are able to show the user a list of files to choose from by calling the new `askToPickFiles` method. As a parameter you provide a directory path.
 
-```
+```php
 $file = $this->askToPickFiles(base_path('app/Models'));
 ```
 
 This will show the user all the files and give you back the selected file path in your command.
+
+### Filter Loaded Files
+
+Sometimes you do not want to show all found files or classes to the user. This is when you can use a filter callable to define what results to leave out. Here is an example.
+
+```php
+$file = $this->askToPickFiles(base_path('app/Models'), function(array $fileInfo) {
+    return rand(0,1);
+});
+```
+
+The second param is the filter callable which gets passed to Laravel's collection filter method. It lets you loop over all files and define what to keep in the files list and what to leave out. In our example, the decision will be random. Take note that the `$fileInfo` variable will be an array with some details about the current file like path. In case of a model or class it will contain the class name and file path.
+
+The filtered result will then be shown to user during the Laravel command.
+
 
 ## Next Up
 
