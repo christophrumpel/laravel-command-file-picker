@@ -65,7 +65,7 @@ class ClassFinder
         return $this->getClassesInDirectory($directory, true);
     }
 
-    protected function getFullyQualifiedClassNameFromFile(string $path): string
+    public function getFullyQualifiedClassNameFromFile(string $path): string
     {
         $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
 

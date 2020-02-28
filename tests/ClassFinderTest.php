@@ -57,4 +57,13 @@ class ClassFinderTest extends TestCase
         ], $classNames->toArray());
     }
 
+    /** @test **/
+    public function it_tells_fully_qualifies_namespace_from_class_path()
+    {
+    	$finder = new ClassFinder(app()->make('files'));
+
+    	$className = $finder->getFullyQualifiedClassNameFromFile(__DIR__.'/Data/Models/User.php');
+    	$this->assertEquals('Christophrumpel\LaravelCommandFilePicker\Tests\Data\Models\User', $className);
+    }
+
 }
