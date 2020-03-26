@@ -19,9 +19,11 @@ class PickModelsCommand extends Command
 
     public function handle()
     {
-        $filePath = $this->askToPickModels(__DIR__.'/../Models');
+        $choiceCollection = $this->askToPickModels(__DIR__.'/../Models');
 
-        $this->info('Thanks. You have chosen: '.$filePath);
+        $choice = $choiceCollection->count() > 1 ? 'all given models' : $choiceCollection->first()['name'];
+
+        $this->info('Thanks. You have chosen: '.$choice);
     }
 
 }

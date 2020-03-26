@@ -39,6 +39,16 @@ class PicksClassCommandTest extends TestCase
     }
 
     /** @test * */
+    public function it_picks_all_models_from_choice()
+    {
+        Artisan::call('make:model UserModel');
+
+        $this->artisan('run:test-command-pick-model')
+            ->expectsQuestion('Please pick a model', 'All')
+            ->expectsOutput('Thanks. You have chosen: all given models');
+    }
+
+    /** @test * */
     public function it_throws_exception_if_no_classes_found()
     {
         $this->expectException(\LogicException::class);
