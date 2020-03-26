@@ -19,7 +19,7 @@ trait PicksClasses
             throw new \LogicException('No classes found to show.');
         }
 
-        return $this->askChoice($classes, $showAllOption);
+        return $this->askChoice($classes, 'class', $showAllOption);
     }
 
     protected function askToPickModels(
@@ -38,10 +38,10 @@ trait PicksClasses
             throw new \LogicException('No models found to show.');
         }
 
-        return $this->askChoice($models, $showAllOption);
+        return $this->askChoice($models, 'model', $showAllOption);
     }
 
-    private function askChoice(Collection $classes, bool $showAllOption = true): Collection
+    private function askChoice(Collection $classes, string $fileType = 'model', bool $showAllOption = true): Collection
     {
         $linkedModels = $classes->map(function (array $model) {
             return $model['link'] ?? $model;
@@ -51,7 +51,7 @@ trait PicksClasses
             $linkedModels->add('All');
         }
 
-        $chosenClasses = $this->choice('Please pick a model', $linkedModels->toArray());
+        $chosenClasses = $this->choice('Please pick a '.$fileType, $linkedModels->toArray());
 
         if ($chosenClasses !== 'All') {
             $classes = $classes->filter(function ($class) use ($chosenClasses) {
