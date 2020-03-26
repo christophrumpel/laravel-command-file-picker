@@ -53,10 +53,10 @@ After that you are able to show the user a list of files to choose from by calli
 $modelClass = $this->askToPickClasses(base_path('app/Models'));
 ```
 
-This will show the user all the classes and give you back the selected class in your command. If you just need Laravel models, you can also load them like:
+This will show the user all the classes and give you back a collection. This collection can contain the one chosen model or all of them if you have use the `All` option. If you just need Laravel models, you can also load them like:
 
 ```php
-$modelClass = $this->askToPickModels());
+$models = $this->askToPickModels();
 ```
 
 It will automatically look for models under your `app/Models` path.
@@ -83,17 +83,17 @@ class MyLaravelCommand extends Command
 After that you are able to show the user a list of files to choose from by calling the new `askToPickFiles` method. As a parameter you provide a directory path.
 
 ```php
-$file = $this->askToPickFiles(base_path('app/Models'));
+$files = $this->askToPickFiles(base_path('app/Models'));
 ```
 
-This will show the user all the files and give you back the selected file path in your command.
+This will show the user all the files and give you back a collection. This collection can contain the chosen file or all of them if you haven chosen the `All` option.
 
 ### Filter Loaded Files
 
 Sometimes you do not want to show all found files or classes to the user. This is when you can use a filter callable to define what results to leave out. Here is an example.
 
 ```php
-$file = $this->askToPickFiles(base_path('app/Models'), function(array $fileInfo) {
+$files = $this->askToPickFiles(base_path('app/Models'), function(array $fileInfo) {
     return rand(0,1);
 });
 ```
@@ -102,11 +102,14 @@ The second param is the filter callable which gets passed to Laravel's collectio
 
 The filtered result will then be shown to user during the Laravel command.
 
+### Remove "All" option
 
-## Next Up
+If you want to remove the `All` option when showing a list, you can do so with an extra parameter:
 
-- config to define model directory
-- load classes with specific parent class using an interface
+```php
+$files = $this->askToPickFiles(base_path('app/Models'), $filterCallable, $showAllOption);
+```
+
 
 ### Testing
 

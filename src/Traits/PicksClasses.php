@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 trait PicksClasses
 {
 
-    protected function askToPickClasses(string $path, callable $filter = null, bool $addAllOption = true): Collection
+    protected function askToPickClasses(string $path, callable $filter = null, bool $showAllOption = true): Collection
     {
         $finder = new ClassFinder($this->laravel->make('files'));
         $classes = $finder->getClassesInDirectory($path)
@@ -19,13 +19,13 @@ trait PicksClasses
             throw new \LogicException('No classes found to show.');
         }
 
-        return $this->askChoice($classes, $addAllOption);
+        return $this->askChoice($classes, $showAllOption);
     }
 
     protected function askToPickModels(
         string $path = null,
         callable $filter = null,
-        bool $addAllOption = true
+        bool $showAllOption = true
     ): Collection {
         $path = $path ?? config('command-file-picker.model_path') ?? app_path();
 
@@ -38,16 +38,16 @@ trait PicksClasses
             throw new \LogicException('No models found to show.');
         }
 
-        return $this->askChoice($models, $addAllOption);
+        return $this->askChoice($models, $showAllOption);
     }
 
-    private function askChoice(Collection $classes, bool $addAllOption = true): Collection
+    private function askChoice(Collection $classes, bool $showAllOption = true): Collection
     {
         $linkedModels = $classes->map(function (array $model) {
             return $model['link'] ?? $model;
         });
 
-        if ($classes->count() > 1 && $addAllOption) {
+        if ($classes->count() > 1 && $showAllOption) {
             $linkedModels->add('All');
         }
 

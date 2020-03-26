@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 trait PicksFiles
 {
 
-    protected function askToPickFiles(string $path, callable $filter = null, bool $addAllOption = true): Collection
+    protected function askToPickFiles(string $path, callable $filter = null, bool $showAllOption = true): Collection
     {
         $finder = new FileFinder($this->laravel->make('files'));
         $files = $finder->getFilesInDirectory($path)
@@ -23,7 +23,7 @@ trait PicksFiles
                 return $file['link'];
             });
 
-        if($addAllOption) {
+        if($showAllOption) {
             $linkedFiles->add('All');
         }
 
