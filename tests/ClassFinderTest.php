@@ -57,6 +57,61 @@ class ClassFinderTest extends TestCase
         ], $classNames->toArray());
     }
 
+    /** @test */
+    public function it_can_find_model_names_within_multiple_directories(): void
+    {
+        $finder = new ClassFinder(app()->make('files'));
+        $classNames = $finder->getModelsInDirectories([__DIR__.'/Data/Models', __DIR__.'/Data/Models']);
+
+        $this->assertCount(4, $classNames);
+
+        $this->assertSame([
+            [
+                'path' =>   __DIR__.'/Data/Models/Project.php',
+                'name' => Project::class,
+                'link' => '<href=file://'.__DIR__.'/Data/Models/Project.php>'.Project::class.'</>'
+            ],
+            [
+                'path' =>  __DIR__.'/Data/Models/User.php',
+                'name' => User::class,
+                'link' => '<href=file://'.__DIR__.'/Data/Models/User.php>'.User::class.'</>'
+            ],
+            [
+                'path' =>   __DIR__.'/Data/Models/Project.php',
+                'name' => Project::class,
+                'link' => '<href=file://'.__DIR__.'/Data/Models/Project.php>'.Project::class.'</>'
+            ],
+            [
+                'path' =>  __DIR__.'/Data/Models/User.php',
+                'name' => User::class,
+                'link' => '<href=file://'.__DIR__.'/Data/Models/User.php>'.User::class.'</>'
+            ],
+        ], $classNames->toArray());
+    }
+
+    /** @test */
+    public function it_can_find_model_names_within_array_of_one_directory(): void
+    {
+        $finder = new ClassFinder(app()->make('files'));
+        $classNames = $finder->getModelsInDirectories([__DIR__.'/Data/Models']);
+
+        $this->assertCount(2, $classNames);
+
+        $this->assertSame([
+            [
+                'path' =>   __DIR__.'/Data/Models/Project.php',
+                'name' => Project::class,
+                'link' => '<href=file://'.__DIR__.'/Data/Models/Project.php>'.Project::class.'</>'
+            ],
+            [
+                'path' =>  __DIR__.'/Data/Models/User.php',
+                'name' => User::class,
+                'link' => '<href=file://'.__DIR__.'/Data/Models/User.php>'.User::class.'</>'
+            ],
+        ], $classNames->toArray());
+    }
+
+
     /** @test **/
     public function it_tells_fully_qualifies_namespace_from_class_path()
     {

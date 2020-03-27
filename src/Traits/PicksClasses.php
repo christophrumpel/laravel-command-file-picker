@@ -41,7 +41,25 @@ trait PicksClasses
         return $this->askChoice($models, 'model', $showAllOption);
     }
 
-    private function askChoice(Collection $classes, string $fileType = 'model', bool $showAllOption = true): Collection
+    protected function askToPickModelsFromMultipleDirectories(
+        array $paths,
+        callable $filter = null,
+        bool $showAllOption = true
+    ): Collection {
+
+        $finder = new ClassFinder($this->laravel->make('files'));
+        $models = $finder->getModelsInDirectories($paths)
+            ->filter($filter)
+            ->values();
+
+        if ($models->isEmpty()) {
+            throw new \LogicException('No models found to show.');
+        }
+
+        return $this->askChoice($models, 'model', $showAllOption);
+    }
+
+    protected function askChoice(Collection $classes, string $fileType = 'model', bool $showAllOption = true): Collection
     {
         $linkedModels = $classes->map(function (array $model) {
             return $model['link'] ?? $model;

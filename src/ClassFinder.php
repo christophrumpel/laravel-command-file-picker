@@ -65,6 +65,16 @@ class ClassFinder
         return $this->getClassesInDirectory($directory, true);
     }
 
+    public function getModelsInDirectories(array $directories): Collection
+    {
+        $models = [];
+        collect($directories)->each(function (string $directory) use (&$models) {
+            $models[] = $this->getClassesInDirectory($directory, true);
+        });
+
+        return collect($models)->flatten(1);
+    }
+
     public function getFullyQualifiedClassNameFromFile(string $path): string
     {
         $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
